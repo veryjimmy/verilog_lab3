@@ -1,0 +1,32 @@
+module LFSR(out,enable,seed,clk);
+	output out;
+	input enable,seed,clk;
+
+	wire feedback;
+	reg [5:0] out;
+	
+	xor xor1(feedback,out[5],out[4]);
+	
+	always @(posedge clk)
+	
+	if(enable==1)
+		begin
+			out[0]<=seed;
+			out[1]<=out[0];
+			out[2]<=out[1];
+			out[3]<=out[2];
+			out[4]<=out[3];
+			out[5]<=out[4];
+		end
+	
+	else
+		begin
+			out[0]<=feedback;
+			out[1]<=out[0];
+			out[2]<=out[1];
+			out[3]<=out[2];
+			out[4]<=out[3];
+			out[5]<=out[4];
+		end
+	
+endmodule 	
